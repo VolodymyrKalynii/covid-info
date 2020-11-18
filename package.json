@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nodemon": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/VolodymyrKalynii/covid-info/issues"
   },
-  "homepage": "https://github.com/VolodymyrKalynii/covid-info#readme"
+  "homepage": "https://github.com/VolodymyrKalynii/covid-info#readme",
+  "dependencies": {
+    "@slack/rtm-api": "^5.0.5",
+    "@slack/web-api": "^5.13.0",
+    "node-fetch": "^2.6.1"
+  }
 }
