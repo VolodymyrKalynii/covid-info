@@ -1,0 +1,19 @@
+{
+  "name": "covid-info",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VolodymyrKalynii/covid-info.git"
+  },
+  "author": "Volodymyr Kalynii",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VolodymyrKalynii/covid-info/issues"
+  },
+  "homepage": "https://github.com/VolodymyrKalynii/covid-info#readme"
+}
