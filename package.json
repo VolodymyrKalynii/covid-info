@@ -20,6 +20,8 @@
   "dependencies": {
     "@slack/rtm-api": "^5.0.5",
     "@slack/web-api": "^5.13.0",
+    "cron": "^1.8.2",
+    "memory-cache": "^0.2.0",
     "node-fetch": "^2.6.1"
   }
 }

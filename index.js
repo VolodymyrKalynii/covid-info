@@ -1,11 +1,41 @@
 const fetch = require('node-fetch');
 const { WebClient } = require('@slack/web-api');
 const { RTMClient } = require('@slack/rtm-api');
+const CronJob = require('cron').CronJob;
+const cache = require('memory-cache');
 
-// const token = 'xoxb-367332637153-1509969632099-L4r76oVlMVxFRQpw7Y61ytje';
-// const token = 'xoxp-367332637153-431652065585-1508034348533-45343e6bc251e118de5953d9aa4b74a0';
-const token = 'xoxb-367332637153-1496429841015-cyNZIFMMSCzogXjUPRqZYko1';
-const apiLinkPart = 'https://api-covid19.rnbo.gov.ua/data?to=2020-11-18';
+// const job = new CronJob('30 * * * * *', function() {
+//     console.log('You will see this message every second');
+//
+//
+//
+//
+// }, null, true, 'Europe/Kiev');
+// job.start();
+
+// cache.put('houdini', {data:'test'}, 100, function(key, value) {
+//     console.log(key + ' did ' + value);
+// }); // Time in ms
+//
+// console.log('Houdini will now ' + cache.get('houdini'));
+
+
+
+
+
+fetch('../data.json')
+    .then(res => res.text())
+    .then(body => {
+        const parsedData = JSON.parse(body);
+        console.log('parsedData', parsedData);
+    });
+
+
+
+
+const token = '';
+
+
 
 const formatDate = (date) => {
     let d = new Date(date),
@@ -21,8 +51,20 @@ const formatDate = (date) => {
     return [year, month, day].join('-');
 };
 
+const currentDate = formatDate(Date.now());
 
-console.log(formatDate(Date.now()));
+const apiLinkPart = `https://api-covid19.rnbo.gov.ua/data?to=${currentDate}`; // currentDate = yyyy-mm-dd
+
+const today = new Date()
+const oneDayMs = 86400000 //number of milliseconds in a day
+const prevDayDate = new Date(today - oneDayMs)
+
+const oldTate = formatDate(prevDayDate);
+
+
+
+
+
 
 
 const rtm = new RTMClient(token);
@@ -61,8 +103,6 @@ rtm.on('message', async (event) => {
     console.log('self', self);
 })();
 
-
-console.log(Date.now());
 
 // fetch(apiLinkPart)
 //     .then(res => res.text())
