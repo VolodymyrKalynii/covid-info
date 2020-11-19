@@ -4,36 +4,72 @@ const { RTMClient } = require('@slack/rtm-api');
 const CronJob = require('cron').CronJob;
 const cache = require('memory-cache');
 
-// const job = new CronJob('30 * * * * *', function() {
-//     console.log('You will see this message every second');
-//
-//
-//
-//
-// }, null, true, 'Europe/Kiev');
-// job.start();
+const oneDayMs = 86400000 //number of milliseconds in a day
 
-// cache.put('houdini', {data:'test'}, 100, function(key, value) {
+const workWithData = (parsedBody) => {
+
+    console.log('parsedBody', parsedBody);
+};
+
+
+
+const job = new CronJob('*/10 * * * * *', function() {
+    console.log('You will see this message every second');
+
+    fetch('https://volodymyrkalynii.github.io/covid-info/data.json')
+        .then(res => res.text())
+        .then(body => {
+            const trimmedBody = body.trim();
+
+            const oldCachedResp = cache.get('oldCachedResp');
+            // console.log('oldCachedResp', oldCachedResp);
+            // console.log('trimmedBody', trimmedBody);
+
+            let finalData;
+
+            console.log('oldCachedResp !== trimmedBody', oldCachedResp !== trimmedBody);
+            if (oldCachedResp !== trimmedBody) {
+                console.log('setDataToCache');
+                finalData = trimmedBody;
+                cache.put('oldCachedResp', trimmedBody, 1000000, function(key, value) {
+                    // console.log(key + ' did ' + value);
+                }); // Time in ms
+
+                const parsedBody = JSON.parse(trimmedBody);
+
+                cache.put('parsedBody', parsedBody, 1000000, function(key, value) {
+                    console.log(key + ' did ' + value);
+
+                }); // Time in ms
+                workWithData(parsedBody)
+
+                //тут продовжити роботу з trimmedBody
+            } else {
+                //якщо я буду робити цей запит раз в сутки, то мені тут треба добавити провірку, що якщо дані однакові,
+                // то знову робити запит, поки дані не будуть нові
+                //тут можна дістати розпарсене значення
+                console.log('workWith parsedData from cache');
+                const parsedBody = cache.get('parsedBody');
+                workWithData(parsedBody)
+            }
+        });
+}, null, true, 'Europe/Kiev');
+job.start();
+
+
+
+
+// cache.put('oldCachedResp', {data:'test'}, 100, function(key, value) {
 //     console.log(key + ' did ' + value);
 // }); // Time in ms
-//
+
 // console.log('Houdini will now ' + cache.get('houdini'));
 
+// const oldCachedResp = cache.get('oldCachedResp');
+// console.log('oldCachedResp', oldCachedResp);
 
 
-
-
-fetch('../data.json')
-    .then(res => res.text())
-    .then(body => {
-        const parsedData = JSON.parse(body);
-        console.log('parsedData', parsedData);
-    });
-
-
-
-
-const token = '';
+const token = 'xoxb-367332637153-1496429841015-6xEhCI5R0dmRRaXcb2T3inqv';
 
 
 
@@ -56,7 +92,6 @@ const currentDate = formatDate(Date.now());
 const apiLinkPart = `https://api-covid19.rnbo.gov.ua/data?to=${currentDate}`; // currentDate = yyyy-mm-dd
 
 const today = new Date()
-const oneDayMs = 86400000 //number of milliseconds in a day
 const prevDayDate = new Date(today - oneDayMs)
 
 const oldTate = formatDate(prevDayDate);
