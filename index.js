@@ -1,9 +1,10 @@
 const initCron = require('./src/cron-initter');
 const init = require('./src/rtm');
 
+const rtm = init();
 
+initCron(rtm);
 
-//todo відкрефакторити ато пісос
 // const workWithData = (country) => {
 //
 //     console.log('parsedBody', country);
@@ -46,7 +47,7 @@ const init = require('./src/rtm');
 //     workWithData(newParsedData)
 // };
 //
-// //todo винести makeRequest в окремий файл
+
 // const makeRequest = () => fetch(apiLink)
 //     .then(res => res.text())
 //     .then(body => {
@@ -69,9 +70,7 @@ const init = require('./src/rtm');
 //         }
 //     });
 
-// initCron(makeRequest);
 
-init();
 
 
 // let country;
@@ -203,14 +202,3 @@ init();
 //     response.end();
 // }).listen(3000);
 
-// Listen for users who join a channel that the bot user is a member of
-// See: https://api.slack.com/events/member_joined_channel
-// rtm.on('member_joined_channel', async (event) => {
-//     try {
-//         // Send a welcome message to the same channel where the new member just joined, and mention the user.
-//         const reply = await rtm.sendMessage(`Welcome to the channel, <@${event.user}>`, event.channel);
-//         console.log('Message sent successfully', reply.ts);
-//     } catch (error) {
-//         console.log('An error occurred', error);
-//     }
-// });

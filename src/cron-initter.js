@@ -1,18 +1,18 @@
 const CronJob = require('cron').CronJob;
 
+const makeRequest = require('./request-maker');
 //'40 21 * * *' о 21.40
 //'* * * * * *' кожну секунду
 
 /**
  *
- * @param {Function} callback
+ * @param {RTMClient} rtm
  */
-const initCron = (callback) => {
-    const job = new CronJob('40 21 * * *', async () => {
+const initCron = (rtm) => {
+    const job = new CronJob('43 18 * * *', async () => {
         console.log('You will see this message every second');
 
-        if (callback)
-            await callback();
+        await makeRequest(rtm);
     }, null, true, 'Europe/Kiev');
     job.start();
 };

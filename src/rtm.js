@@ -52,6 +52,7 @@ const init = () => {
                 'Також, я буду сам кожного ранку виводити нові дані в чат.\n' +
                 'Поки все, може потім щось ще навчусь, якщо Вові буде не влом.\n' +
                 'Для відображення списку команд введіть: ' + `${botName} h\n` +
+                'Приклад виклику команди: ' + `${botName} all\n` +
                 'І звісно, не забувайте носити макси, мити руки і пити ромашку обов\'язково.';
         } else if (dataCommandKeys[command]) {
             resp = checkHasData(command, rtm)
@@ -63,6 +64,18 @@ const init = () => {
         const reply = rtm.sendMessage(resp, event.channel).then(() => {
             console.log('єбой1', reply.ts);
         });
+    });
+
+    // Listen for users who join a channel that the bot user is a member of
+    // See: https://api.slack.com/events/member_joined_channel
+        rtm.on('member_joined_channel', async (event) => {
+        try {
+            // Send a welcome message to the same channel where the new member just joined, and mention the user.
+            const reply = await rtm.sendMessage(`Дороу, <@${event.user}>`, event.channel);
+            console.log('Message sent successfully', reply.ts);
+        } catch (error) {
+            console.log('An error occurred', error);
+        }
     });
 
     return rtm;
