@@ -1,9 +1,16 @@
+const http = require('http');
+
 const initCron = require('./src/cron-initter');
 const init = require('./src/rtm');
 
 const rtm = init();
 
 initCron(rtm);
+
+http.createServer(function(request, response){
+
+    response.end("Hello world!");
+}).listen(5000);
 
 // const workWithData = (country) => {
 //
