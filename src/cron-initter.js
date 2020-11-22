@@ -9,7 +9,7 @@ const makeRequest = require('./request-maker');
  * @param {RTMClient} rtm
  */
 const initCron = (rtm) => {
-    const job = new CronJob('43 18 * * *', async () => {
+    const job = new CronJob('20 8 * * *', async () => {
         console.log('You will see this message every second');
 
         await makeRequest(rtm);
