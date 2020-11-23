@@ -4,7 +4,6 @@ const isEqual = require('lodash.isequal');
 
 const currentDate = require('./current-data-getter');
 const {cacheDataLifeTime, timeToMakeRequest} = require('./config');
-// const apiLink = 'https://volodymyrkalynii.github.io/covid-info/data.json';
 const apiLink = `https://api-covid19.rnbo.gov.ua/data?to=${currentDate}`; // currentDate = yyyy-mm-dd
 
 let interval;
