@@ -81,18 +81,8 @@ const initServer = () => {
                     }
                 },
                 {
-                    "type": "section",
-                    "text": {
-                        "type": "mrkdwn",
-                        "text": `*h* - Вивести список всіх команд;`
-                    }
-                },
-                {
-                    "type": "section",
-                    "text": {
-                        "type": "mrkdwn",
-                        "text": `*\/h* - 222Вивести список всіх команд;`
-                    }
+                    "type": "mrkdwn",
+                    "text": `*h* - Вивести список всіх команд;`
                 }
             ]
         };
