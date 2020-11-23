@@ -120,7 +120,6 @@ const checkHasData = (response) => {
     if (!country) {
         response.write('Упс, щось не так з даними, пробую дістати ще раз...');
         response.send('Упс, щось не так з даними, пробую дістати ще раз...');
-        response.send('ыыы');
     }
 
     return country;
