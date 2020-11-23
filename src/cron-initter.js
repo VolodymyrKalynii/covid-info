@@ -28,8 +28,6 @@ const job = new CronJob('0 */25 * * * *', async () => {
     fetch(apiLink)
         .then(res => console.log(`response-ok: ${res.ok}, status: ${res.status}`))
         .catch(err => console.log(err));
-
-    await makeRequest(rtm);
 }, null, true, 'Europe/Kiev');
 job.start();
 
