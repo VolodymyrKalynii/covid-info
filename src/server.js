@@ -1,12 +1,9 @@
 const express = require("express");
 
 const dataCommandKeys = require('./data-command-keys');
-/**
- *
- * @param {RTMClient} rtm
- */
-const initServer = (rtm) => {
-    const app = express(rtm);
+
+const initServer = () => {
+    const app = express();
 
     app.get("/", function(request, response){
         console.log('glob');
@@ -37,7 +34,7 @@ const initServer = (rtm) => {
         response.send(json);
     });
     app.use("/h", function(request, response){
-
+        console.log('help');
         const {all, lastDayConfirmed, lastDayRecovered, lastDay, lastDayDeaths} = dataCommandKeys;
         const resp = 'Список команд:\n' +
             '*' + all + '* - Отримати всю актуальну статистику;\n' +
@@ -59,3 +56,5 @@ const initServer = (rtm) => {
 
     app.listen(process.env.PORT);
 };
+
+module.exports = initServer;

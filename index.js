@@ -5,10 +5,13 @@ const express = require("express");
 
 const initCron = require('./src/cron-initter');
 const init = require('./src/rtm');
+const initServer = require('./src/server');
 
 const rtm = init();
 
 initCron(rtm);
+
+initServer();
 
 
 
