@@ -1,6 +1,6 @@
 const express = require("express");
 const cache = require('memory-cache');
-
+const makeRequest = require('./request-maker');
 const dataCommandKeys = require('./data-command-keys');
 
 const initServer = () => {
@@ -115,11 +115,16 @@ const initServer = () => {
  * @param response
  * @returns {null}
  */
-const checkHasData = (response) => {
+const checkHasData = async (response) => {
     const country = cache.get('parsedBody');
         //todo викликати тут makeRequest
     if (!country) {
-        response.send('Упс, щось не так з даними, пробую дістати ще раз...');
+        const callback = (resp) => {
+            response.send(resp);
+        };
+
+
+        await makeRequest(callback);
     }
 
     return country;

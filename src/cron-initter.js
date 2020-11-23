@@ -7,13 +7,13 @@ const makeRequest = require('./request-maker');
 
 /**
  *
- * @param {RTMClient} rtm
+ * @param {Function} callback
  */
-const initCron = (rtm) => {
+const initCron = (callback) => {
     const job = new CronJob('20 8 * * *', async () => {
         console.log('You will see this message every second');
 
-        await makeRequest(rtm);
+        await makeRequest(callback);
     }, null, true, 'Europe/Kiev');
     job.start();
 };

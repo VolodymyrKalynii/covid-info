@@ -11,12 +11,14 @@ let interval;
 /**
  *
  * @param country
- * @param {RTMClient} rtm
+ * @param {Function} callback
  */
-const workWithData = (country, rtm) => {
+const workWithData = (country, callback) => {
     console.log('parsedBody', country);
 
     const {confirmed, deaths, recovered, delta_confirmed, delta_deaths, delta_recovered} = country;
+
+    //todo зробити з даних json
     const resp = 'Прийшли нові данні за *' + currentDate + '*\n' +
         'Нових випадків: *' + delta_confirmed + '*\n' +
         'Одужали за добу: *' + delta_recovered + '*\n' +
@@ -26,35 +28,36 @@ const workWithData = (country, rtm) => {
         'Всього одужало: *' + recovered + '*\n' +
         'Всього летальних випадків: *' + deaths + '*\n';
 
-    const reply = rtm.sendMessage(resp, 'C01FFEG3NBE').then(() => {
-        console.log('єбой', reply.ts);
-    });
+    callback(resp);
+    // const reply = rtm.sendMessage(resp, 'C01FFEG3NBE').then(() => {
+    //     console.log('єбой', reply.ts);
+    // });
 };
 
 /**
  *
  * @param newParsedData
- * @param {RTMClient} rtm
+ * @param {Function} callback
  */
-const saveNewDataAction = (newParsedData, rtm) => {
+const saveNewDataAction = (newParsedData, callback) => {
     clearInterval(interval);
 
     cache.put('parsedBody', newParsedData, cacheDataLifeTime);
-    workWithData(newParsedData, rtm)
+    workWithData(newParsedData, callback)
 };
 
 /**
  *
- * @param {RTMClient} rtm
+ * @param {Function} callback
  * @returns {PromiseLike<any> | Promise<any>}
  */
-const makeRequest = (rtm) => fetch(apiLink)
+const makeRequest = (callback) => fetch(apiLink)
     .then(res => res.text())
     .then(body => {
         const {newParsedData, hasNewData} = checkNewData(body);
         console.log('hasNewData big', hasNewData);
         if (hasNewData) {
-            saveNewDataAction(newParsedData, rtm);
+            saveNewDataAction(newParsedData, callback);
         } else {
             interval = setInterval(() => {
                 fetch(apiLink)
@@ -63,7 +66,7 @@ const makeRequest = (rtm) => fetch(apiLink)
                         const {newParsedData, hasNewData} = checkNewData(body);
 
                         if (hasNewData) {
-                            saveNewDataAction(newParsedData, rtm);
+                            saveNewDataAction(newParsedData, callback);
                         }
                     });
             }, timeToMakeRequest);

@@ -9,7 +9,14 @@ const initServer = require('./src/server');
 
 const rtm = init();
 
-initCron(rtm);
+
+const callback = (resp) => {
+    const reply = rtm.sendMessage(resp, 'C01FFEG3NBE').then(() => {
+        console.log('єбой', reply.ts);
+    });
+};
+
+initCron(callback);
 
 initServer();
 
