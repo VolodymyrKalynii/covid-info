@@ -57,8 +57,8 @@ const init = () => {
         } else if (dataCommandKeys[command]) {
             resp = checkHasData(command, rtm)
         } else {
-            resp = 'Не знаю такої команди ¯\\_(ツ)_/¯. \n' +
-                'Для відображення списку команд введіть: ' + `${botName} h`;
+            resp = 'Не знаю такої команди ¯\\_(ツ)_/¯. \n';
+                // 'Для відображення списку команд введіть: ' + `${botName} h`;
         }
 
         const reply = rtm.sendMessage(resp, event.channel).then(() => {
