@@ -33,18 +33,75 @@ const initServer = () => {
 
         response.send(json);
     });
-    app.use("/h", function(request, response){
-        console.log('help');
+    app.use("/h", (request, response) => {
         const {all, lastDayConfirmed, lastDayRecovered, lastDay, lastDayDeaths} = dataCommandKeys;
-        const resp = 'Список команд:\n' +
-            '*' + all + '* - Отримати всю актуальну статистику;\n' +
-            '*' + lastDayConfirmed + '* - Вивести кількість нових випадків(за останню добу);\n' +
-            '*' + lastDayRecovered + '* - Вивести скільки одужало(за останню добу);\n' +
-            '*' + lastDayDeaths + '* - Вивести летальних випадків(за останню добу);\n' +
-            '*' + lastDay + '* - Вивести всі нові дані(за останню добу);\n' +
-            '*h* - Вивести список всіх команд;\n';
+        const json = {
+            "response_type": "in_channel",
+            "blocks": [
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "Список команд:"
+                    }
+                },
+                {
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": `*${all}* - Отримати всю актуальну статистику;`
+                    }
+                },
+                {
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": `*${lastDayConfirmed}* - Вивести кількість нових випадків(за останню добу);`
+                    }
+                },
+                {
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": `*${lastDayRecovered}* - Вивести скільки одужало(за останню добу);`
+                    }
+                },
+                {
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": `*${lastDayDeaths}* - Вивести летальних випадків(за останню добу);`
+                    }
+                },
+                {
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": `*${lastDay}* - Вивести всі нові дані(за останню добу);`
+                    }
+                },
+                {
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": `*h* - Вивести список всіх команд;`
+                    }
+                },
+                {
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": `*\/h* - 222Вивести список всіх команд;`
+                    }
+                }
+            ]
+        };
+        console.log('help');
+        response.send(json);
 
-        response.send(resp);
+
+        // const resp = 'Список команд:\n' +
+        //     '*' + all + '* - Отримати всю актуальну статистику;\n' +
+        //     '*' + lastDayConfirmed + '* - Вивести кількість нових випадків(за останню добу);\n' +
+        //     '*' + lastDayRecovered + '* - Вивести скільки одужало(за останню добу);\n' +
+        //     '*' + lastDayDeaths + '* - Вивести летальних випадків(за останню добу);\n' +
+        //     '*' + lastDay + '* - Вивести всі нові дані(за останню добу);\n' +
+        //     '*h* - Вивести список всіх команд;\n';
+        //
+        // response.send(json);
     });
     app.use("/lol", function(request, response){
 
