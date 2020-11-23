@@ -1,4 +1,6 @@
 // const http = require('http');
+// const {WebClient} = require('@slack/web-api');
+
 const express = require("express");
 
 const initCron = require('./src/cron-initter');
@@ -8,12 +10,11 @@ const rtm = init();
 
 initCron(rtm);
 
-
 const app = express();
 
 app.get("/", function(request, response){
     console.log('glob');
-    // response.send("<h1>Главная страница</h1>");
+    response.send("<h1>Главная страница</h1>");
 });
 app.use("/about", function(request, response){
 
@@ -201,33 +202,12 @@ app.listen(process.env.PORT);
 //
 // (async () => {
 //     // See: https://api.slack.com/methods/chat.postMessage
-//     // const res = await web.chat.postMessage({ channel: 'bot-test', text: 'Hello there' });
+//     const res = await web.chat.postMessage({ channel: 'DCQ0M1HNYe', text: 'Hello there' });
 //
-//     // const res = await web.chat.postMessageToUser('user_name', 'Hello world!');
+//     // const res = await web.chat.postMessage('DCQ0M1HNYe', 'Hello world!');
 //
 //     // `res` contains information about the posted message
 //     // console.log('Message sent: ', res.ts);
 // })();
 
-
-// http.createServer(async (request, response) =>{
-//
-//     response.setHeader("Content-Type", "text/html; charset=utf-8;");
-//     console.log('adasda');
-//     if(request.url === "/home" || request.url === "/"){
-//         response.write("<h2>Home</h2>");
-//
-//         await web.chat.postMessage({ channel: 'bot-test', text: 'home' });
-//     }
-//     else if(request.url === "/about"){
-//         await web.chat.postMessage({ channel: 'bot-test', text: 'about' });
-//     }
-//     else if(request.url === "/test"){
-//         await web.chat.postMessage({ channel: 'bot-test', text: 'test' });
-//     }
-//     else{
-//         response.write("<h2>Not fdound</h2>");
-//     }
-//     response.end();
-// }).listen(3000);
 
