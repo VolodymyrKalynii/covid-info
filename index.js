@@ -10,46 +10,7 @@ const rtm = init();
 
 initCron(rtm);
 
-const app = express();
 
-app.get("/", function(request, response){
-    console.log('glob');
-    response.send("<h1>Главная страница</h1>");
-});
-app.use("/about", function(request, response){
-    const json = {
-        "response_type": "in_channel",
-        "blocks": [
-            {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "*It's 80 degrees right now.*"
-                }
-            },
-            {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "Partly cloudy today and tomorrow"
-                }
-            }
-        ]
-    };
-    console.log('/about');
-    let id = request.query.id;
-    let userName = request.query.name;
-    response.send(json);
-});
-app.use("/lol", function(request, response){
-
-    console.log('/lol');
-    let id = request.query.id;
-    let userName = request.query.name;
-    response.send("<h1>Информация</h1><p>id=" + id +"</p><p>name=" + userName + "</p>");
-});
-
-app.listen(process.env.PORT);
 
 
 // http.createServer(function(request, response){
