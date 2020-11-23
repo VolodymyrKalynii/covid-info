@@ -49,41 +49,46 @@ const initServer = () => {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": `*${all}* - Отримати всю актуальну статистику;`
+                        "text": '*' + all + '* - Отримати всю актуальну статистику;\n' +
+                            '*' + lastDayConfirmed + '* - Вивести кількість нових випадків(за останню добу);\n' +
+                            '*' + lastDayRecovered + '* - Вивести скільки одужало(за останню добу);\n' +
+                            '*' + lastDayDeaths + '* - Вивести летальних випадків(за останню добу);\n' +
+                            '*' + lastDay + '* - Вивести всі нові дані(за останню добу);\n' +
+                            '*h* - Вивести список всіх команд;\n'
                     }
                 },
-                {
-                    "type": "section",
-                    "text": {
-                        "type": "mrkdwn",
-                        "text": `*${lastDayConfirmed}* - Вивести кількість нових випадків(за останню добу);`
-                    }
-                },
-                {
-                    "type": "section",
-                    "text": {
-                        "type": "mrkdwn",
-                        "text": `*${lastDayRecovered}* - Вивести скільки одужало(за останню добу);`
-                    }
-                },
-                {
-                    "type": "section",
-                    "text": {
-                        "type": "mrkdwn",
-                        "text": `*${lastDayDeaths}* - Вивести летальних випадків(за останню добу);`
-                    }
-                },
-                {
-                    "type": "section",
-                    "text": {
-                        "type": "mrkdwn",
-                        "text": `*${lastDay}* - Вивести всі нові дані(за останню добу);`
-                    }
-                },
-                {
-                    "type": "mrkdwn",
-                    "text": `*h* - Вивести список всіх команд;`
-                }
+                // {
+                //     "type": "section",
+                //     "text": {
+                //         "type": "mrkdwn",
+                //         "text": `*${lastDayConfirmed}* - Вивести кількість нових випадків(за останню добу);`
+                //     }
+                // },
+                // {
+                //     "type": "section",
+                //     "text": {
+                //         "type": "mrkdwn",
+                //         "text": `*${lastDayRecovered}* - Вивести скільки одужало(за останню добу);`
+                //     }
+                // },
+                // {
+                //     "type": "section",
+                //     "text": {
+                //         "type": "mrkdwn",
+                //         "text": `*${lastDayDeaths}* - Вивести летальних випадків(за останню добу);`
+                //     }
+                // },
+                // {
+                //     "type": "section",
+                //     "text": {
+                //         "type": "mrkdwn",
+                //         "text": `*${lastDay}* - Вивести всі нові дані(за останню добу);`
+                //     }
+                // },
+                // {
+                //     "type": "mrkdwn",
+                //     "text": `*h* - Вивести список всіх команд;`
+                // }
             ]
         };
         console.log('help');
