@@ -78,9 +78,10 @@ const checkNewData = (newData) => {
     const {world} = newParsedData;
     const country = world.find(c => c.country === 'Ukraine');
     const oldCachedData = cache.get('parsedBody');
+    const {delta_confirmed, delta_deaths, delta_recovered} = country;
 
-    return {
-        hasNewData: !isEqual(country, oldCachedData),
+    return { // добавив провірку на 0, бо якогось фіга, зранку апі вертає нульові значення
+        hasNewData: delta_confirmed > 0 && delta_deaths > 0 && delta_recovered > 0 &&  !isEqual(country, oldCachedData),
         newParsedData: country
     };
 };
