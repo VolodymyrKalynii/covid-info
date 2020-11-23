@@ -57,53 +57,45 @@ const initServer = () => {
                             '*h* - Вивести список всіх команд;\n'
                     }
                 },
-                // {
-                //     "type": "section",
-                //     "text": {
-                //         "type": "mrkdwn",
-                //         "text": `*${lastDayConfirmed}* - Вивести кількість нових випадків(за останню добу);`
-                //     }
-                // },
-                // {
-                //     "type": "section",
-                //     "text": {
-                //         "type": "mrkdwn",
-                //         "text": `*${lastDayRecovered}* - Вивести скільки одужало(за останню добу);`
-                //     }
-                // },
-                // {
-                //     "type": "section",
-                //     "text": {
-                //         "type": "mrkdwn",
-                //         "text": `*${lastDayDeaths}* - Вивести летальних випадків(за останню добу);`
-                //     }
-                // },
-                // {
-                //     "type": "section",
-                //     "text": {
-                //         "type": "mrkdwn",
-                //         "text": `*${lastDay}* - Вивести всі нові дані(за останню добу);`
-                //     }
-                // },
-                // {
-                //     "type": "mrkdwn",
-                //     "text": `*h* - Вивести список всіх команд;`
-                // }
             ]
         };
         console.log('help');
         response.send(json);
+    });
+    app.use("/all", (request, response) => {
+        const country = checkHasData(response);
+        // const country = cache.get('parsedBody');
 
+        if (!country) return null;
 
-        // const resp = 'Список команд:\n' +
-        //     '*' + all + '* - Отримати всю актуальну статистику;\n' +
-        //     '*' + lastDayConfirmed + '* - Вивести кількість нових випадків(за останню добу);\n' +
-        //     '*' + lastDayRecovered + '* - Вивести скільки одужало(за останню добу);\n' +
-        //     '*' + lastDayDeaths + '* - Вивести летальних випадків(за останню добу);\n' +
-        //     '*' + lastDay + '* - Вивести всі нові дані(за останню добу);\n' +
-        //     '*h* - Вивести список всіх команд;\n';
-        //
-        // response.send(json);
+        const {confirmed, deaths, recovered, delta_confirmed, delta_deaths, delta_recovered} = country;
+        const json = {
+            "response_type": "in_channel",
+            "blocks": [
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "Список команд:"
+                    }
+                },
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": 'Нових випадків: *' + delta_confirmed + '*\n' +
+                            'Одужали за добу: *' + delta_recovered + '*\n' +
+                            'Летальних випадків за добу: *' + delta_deaths + '*\n' +
+                            '___\n' +
+                            'Всього випадків: *' + confirmed + '*\n' +
+                            'Всього одужало: *' + recovered + '*\n' +
+                            'Всього летальних випадків: *' + deaths + '*\n'
+                    }
+                },
+            ]
+        };
+        console.log('help');
+        response.send(json);
     });
     app.use("/lol", function(request, response){
 
@@ -114,6 +106,23 @@ const initServer = () => {
     });
 
     app.listen(process.env.PORT);
+};
+
+/**
+ *
+ * @param response
+ * @returns {null}
+ */
+const checkHasData = (response) => {
+    const country = cache.get('parsedBody');
+
+    if (!country) {
+        response.write('Упс, щось не так з даними, пробую дістати ще раз...');
+        response.send('Упс, щось не так з даними, пробую дістати ще раз...');
+        response.send('ыыы');
+    }
+
+    return country;
 };
 
 module.exports = initServer;
