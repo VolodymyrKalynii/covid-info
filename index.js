@@ -17,11 +17,28 @@ app.get("/", function(request, response){
     response.send("<h1>Главная страница</h1>");
 });
 app.use("/about", function(request, response){
-
+    const json = {
+        "blocks": [
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "*It's 80 degrees right now.*"
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "Partly cloudy today and tomorrow"
+                }
+            }
+        ]
+    };
     console.log('/about');
     let id = request.query.id;
     let userName = request.query.name;
-    response.send("<h1>Информация</h1><p>id=" + id +"</p><p>name=" + userName + "</p>");
+    response.send(json);
 });
 app.use("/lol", function(request, response){
 
