@@ -23,7 +23,7 @@ app.use("/about", function(request, response){
     response.send("<h1>Информация</h1><p>id=" + id +"</p><p>name=" + userName + "</p>");
 });
 
-app.listen(3000);
+app.listen(process.env.PORT);
 
 
 // http.createServer(function(request, response){
