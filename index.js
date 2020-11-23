@@ -1,4 +1,5 @@
-const http = require('http');
+// const http = require('http');
+const express = require("express");
 
 const initCron = require('./src/cron-initter');
 const init = require('./src/rtm');
@@ -7,13 +8,31 @@ const rtm = init();
 
 initCron(rtm);
 
-http.createServer(function(request, response){
 
-    response.setHeader("UserId", 12);
-    response.setHeader("Content-Type", "text/html; charset=utf-8;");
-    response.write("<h2>hello world</h2>");
-    response.end();
-}).listen(process.env.PORT);
+const app = express();
+
+app.get("/", function(request, response){
+    console.log('glob');
+    // response.send("<h1>Главная страница</h1>");
+});
+app.use("/about", function(request, response){
+
+    console.log('/about');
+    let id = request.query.id;
+    let userName = request.query.name;
+    response.send("<h1>Информация</h1><p>id=" + id +"</p><p>name=" + userName + "</p>");
+});
+
+app.listen(3000);
+
+
+// http.createServer(function(request, response){
+//
+//     response.setHeader("UserId", 12);
+//     response.setHeader("Content-Type", "text/html; charset=utf-8;");
+//     response.write("<h2>hello world</h2>");
+//     response.end();
+// }).listen(process.env.PORT);
 
 // const workWithData = (country) => {
 //
