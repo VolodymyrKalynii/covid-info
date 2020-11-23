@@ -106,7 +106,8 @@ const initServer = () => {
         response.send("<h1>Информация</h1><p>id=" + id +"</p><p>name=" + userName + "</p>");
     });
 
-    app.listen(process.env.PORT);
+    app.listen(3000);
+    // app.listen(process.env.PORT);
 };
 
 /**
@@ -116,11 +117,9 @@ const initServer = () => {
  */
 const checkHasData = (response) => {
     const country = cache.get('parsedBody');
-
+        //todo викликати тут makeRequest
     if (!country) {
-        response.write('Упс, щось не так з даними, пробую дістати ще раз...');
-        response.write('Упс, щось не так з даними, пробую дістати ще раз...');
-        // response.send('Упс, щось не так з даними, пробую дістати ще раз...');
+        response.send('Упс, щось не так з даними, пробую дістати ще раз...');
     }
 
     return country;
