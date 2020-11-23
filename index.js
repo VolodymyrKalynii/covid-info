@@ -18,6 +18,7 @@ app.get("/", function(request, response){
 });
 app.use("/about", function(request, response){
     const json = {
+        "response_type": "in_channel",
         "blocks": [
             {
                 "type": "section",
