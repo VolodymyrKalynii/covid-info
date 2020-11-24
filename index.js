@@ -1,14 +1,11 @@
-// const http = require('http');
-// const {WebClient} = require('@slack/web-api');
-
-const express = require("express");
-
 const initCron = require('./src/cron-initter');
 const init = require('./src/rtm');
 const initServer = require('./src/server');
+const makeRequest = require('./src/request-maker');
 
 const rtm = init();
 
+makeRequest();
 
 const callback = (resp) => {
     const reply = rtm.sendMessage(resp, 'C01FFEG3NBE').then(() => {

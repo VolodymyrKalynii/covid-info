@@ -3,6 +3,7 @@ const cache = require('memory-cache');
 const isEqual = require('lodash.isequal');
 
 const currentDate = require('./current-data-getter');
+const getAllDataJsonSection = require('./all-data-json-section-getter');
 const {cacheDataLifeTime, timeToMakeRequest} = require('./config');
 const apiLink = `https://api-covid19.rnbo.gov.ua/data?to=${currentDate}`; // currentDate = yyyy-mm-dd
 
@@ -16,22 +17,10 @@ let interval;
 const workWithData = (country, callback) => {
     console.log('parsedBody', country);
 
-    const {confirmed, deaths, recovered, delta_confirmed, delta_deaths, delta_recovered} = country;
+    const json = getAllDataJsonSection(country);
 
-    //todo зробити з даних json
-    const resp = 'Прийшли нові данні за *' + currentDate + '*\n' +
-        'Нових випадків: *' + delta_confirmed + '*\n' +
-        'Одужали за добу: *' + delta_recovered + '*\n' +
-        'Летальних випадків за добу: *' + delta_deaths + '*\n' +
-        '___\n' +
-        'Всього випадків: *' + confirmed + '*\n' +
-        'Всього одужало: *' + recovered + '*\n' +
-        'Всього летальних випадків: *' + deaths + '*\n';
-
-    callback(resp);
-    // const reply = rtm.sendMessage(resp, 'C01FFEG3NBE').then(() => {
-    //     console.log('єбой', reply.ts);
-    // });
+    if (callback)
+        callback(json);
 };
 
 /**
@@ -43,12 +32,14 @@ const saveNewDataAction = (newParsedData, callback) => {
     clearInterval(interval);
 
     cache.put('parsedBody', newParsedData, cacheDataLifeTime);
-    workWithData(newParsedData, callback)
+    console.log('callback', callback);
+    if (callback)
+        workWithData(newParsedData, callback)
 };
 
 /**
  *
- * @param {Function} callback
+ * @param {Function?} callback
  * @returns {PromiseLike<any> | Promise<any>}
  */
 const makeRequest = (callback) => fetch(apiLink)

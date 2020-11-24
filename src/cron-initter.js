@@ -10,7 +10,7 @@ const makeRequest = require('./request-maker');
  * @param {Function} callback
  */
 const initCron = (callback) => {
-    const job = new CronJob('20 8 * * *', async () => {
+    const job = new CronJob('37 17 * * *', async () => {
         console.log('You will see this message every second');
 
         await makeRequest(callback);
@@ -21,14 +21,14 @@ const initCron = (callback) => {
 
 // globals
 
-const apiLink = 'https://volodymyrkalynii.github.io/covid-info/data.json';
-const job = new CronJob('0 */25 * * * *', async () => {
-    console.log('You will see this message every second');
-
-    fetch(apiLink)
-        .then(res => console.log(`response-ok: ${res.ok}, status: ${res.status}`))
-        .catch(err => console.log(err));
-}, null, true, 'Europe/Kiev');
-job.start();
+// const apiLink = 'https://volodymyrkalynii.github.io/covid-info/data.json';
+// const job = new CronJob('0 */25 * * * *', async () => {
+//     console.log('You will see this message every second');
+//
+//     fetch(apiLink)
+//         .then(res => console.log(`response-ok: ${res.ok}, status: ${res.status}`))
+//         .catch(err => console.log(err));
+// }, null, true, 'Europe/Kiev');
+// job.start();
 
 module.exports = initCron;
