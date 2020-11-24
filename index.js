@@ -3,9 +3,9 @@ const init = require('./src/rtm');
 const initServer = require('./src/server');
 const makeRequest = require('./src/request-maker');
 
-const rtm = init();
-
 makeRequest();
+
+const rtm = init();
 
 const callback = (resp) => {
     const reply = rtm.sendMessage(resp, 'C01FFEG3NBE').then(() => {

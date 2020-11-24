@@ -15,6 +15,13 @@ const init = () => {
         console.log('self', self);
         const {id} = self;
 
+        // const reply = rtm.sendMessage({
+        //     "response_type": "in_channel",
+        //     "text": "It's 80 degrees right now."
+        // }., 'C01FFEG3NBE').then(() => {
+        //     console.log('єбой', reply.ts);
+        // });
+
         botName = `<@${id}>`;
     })();
 
@@ -35,7 +42,7 @@ const init = () => {
             'Також, я буду сам кожного ранку виводити нові дані в чат.\n' +
             'Поки все, може потім щось ще навчусь, якщо Вові буде не влом.\n' +
             'Для відображення списку команд введіть: /h\n' +
-            'І звісно, не забувайте носити маски, мити руки і пити ромашку обов\'язково.'
+            'І звісно, не забувайте носити маски, мити руки і пити ромашку обов\'язково.';
         // if (command === 'h') {
         //     const {all, lastDayConfirmed, lastDayRecovered, lastDay, lastDayDeaths} = dataCommandKeys;
         //     resp = 'Список команд:\n' +

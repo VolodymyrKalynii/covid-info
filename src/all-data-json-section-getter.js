@@ -24,6 +24,6 @@ const getAllDataJsonSection = (country) => {
             },
         ]
     };
-}
+};
 
 module.exports = getAllDataJsonSection;

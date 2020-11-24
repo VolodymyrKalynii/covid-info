@@ -1,6 +1,6 @@
 const express = require("express");
 const cache = require('memory-cache');
-const makeRequest = require('./request-maker');
+// const makeRequest = require('./request-maker');
 const dataCommandKeys = require('./data-command-keys');
 const getAllDataJsonSection = require('./all-data-json-section-getter');
 
