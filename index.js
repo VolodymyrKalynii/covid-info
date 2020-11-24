@@ -1,3 +1,5 @@
+require('newrelic');
+
 const initCron = require('./src/cron-initter');
 const init = require('./src/rtm');
 const initServer = require('./src/server');
