@@ -1,9 +1,9 @@
 const dataCommandKeys = {
     all: 'all',
-    lastDay: 'lastDay',
-    lastDayConfirmed: 'lastDayConfirmed',
-    lastDayRecovered: 'lastDayRecovered',
-    lastDayDeaths: 'lastDayDeaths',
+    lastDay: 'ld',
+    lastDayConfirmed: 'ld-confirmed',
+    lastDayRecovered: 'ld-recovered',
+    lastDayDeaths: 'ld-deaths',
 };
 
 module.exports = dataCommandKeys;
