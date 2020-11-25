@@ -1,5 +1,5 @@
 const CronJob = require('cron').CronJob;
-const fetch = require('node-fetch');
+// const fetch = require('node-fetch');
 
 const makeRequest = require('./request-maker');
 //'40 21 * * *' о 21.40
@@ -10,7 +10,7 @@ const makeRequest = require('./request-maker');
  * @param {Function} callback
  */
 const initCron = (callback) => {
-    const job = new CronJob('25 8 * * *', async () => {
+    const job = new CronJob('30 8 * * *', async () => {
         console.log('You will see this message every second');
 
         await makeRequest(callback);

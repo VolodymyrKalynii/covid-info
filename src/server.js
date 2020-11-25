@@ -1,6 +1,6 @@
 const express = require("express");
 const cache = require('memory-cache');
-// const makeRequest = require('./request-maker');
+const makeRequest = require('./request-maker');
 const dataCommandKeys = require('./data-command-keys');
 const getAllDataJsonSection = require('./all-data-json-section-getter');
 
@@ -44,7 +44,19 @@ const initServer = () => {
         const country = cache.get('parsedBody');
 
         if (!country) {
-            response.send('Упс, щось не так з даними(');
+            sendAltMessage(response);
+            return null;
+        }
+
+        const json = getAllDataJsonSection(country);
+
+        response.send(json);
+    });
+    app.use("/loadFromApi", (request, response) => {
+        const country = cache.get('parsedBody');
+
+        if (!country) {
+            sendAltMessage(response);
             return null;
         }
 
@@ -56,7 +68,7 @@ const initServer = () => {
         const country = cache.get('parsedBody');
 
         if (!country) {
-            response.send('Упс, щось не так з даними(');
+            sendAltMessage(response);
             return null;
         }
 
@@ -83,7 +95,7 @@ const initServer = () => {
         const country = cache.get('parsedBody');
 
         if (!country) {
-            response.send('Упс, щось не так з даними(');
+            sendAltMessage(response);
             return null;
         }
 
@@ -108,7 +120,7 @@ const initServer = () => {
         const country = cache.get('parsedBody');
 
         if (!country) {
-            response.send('Упс, щось не так з даними(');
+            sendAltMessage(response);
             return null;
         }
 
@@ -133,7 +145,7 @@ const initServer = () => {
         const country = cache.get('parsedBody');
 
         if (!country) {
-            response.send('Упс, щось не так з даними(');
+            sendAltMessage(response);
             return null;
         }
 
@@ -157,6 +169,12 @@ const initServer = () => {
 
     // app.listen(3000);
     app.listen(process.env.PORT);
+};
+
+
+const sendAltMessage = (response) => {
+    response.send('Упс, щось не так з даними(');
+    makeRequest();
 };
 
 module.exports = initServer;
