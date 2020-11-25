@@ -10,7 +10,9 @@ makeRequest();
 const rtm = init();
 
 const callback = (resp) => {
-    const reply = rtm.sendMessage(resp, 'C01FFEG3NBE').then(() => {
+    const channel = 'CAT9SK0RX'; //random
+    // const channel = 'C01FFEG3NBE'; // test
+    const reply = rtm.sendMessage(resp, channel).then(() => {
         console.log('єбой', reply.ts);
     });
 };
