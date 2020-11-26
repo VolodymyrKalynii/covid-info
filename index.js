@@ -5,13 +5,13 @@ const init = require('./src/rtm');
 const initServer = require('./src/server');
 const makeRequest = require('./src/request-maker');
 
-makeRequest();
+// makeRequest();
 
 const rtm = init();
 
 const callback = (resp) => {
-    const channel = 'CAT9SK0RX'; //random
-    // const channel = 'C01FFEG3NBE'; // test
+    // const channel = 'CAT9SK0RX'; //random
+    const channel = 'C01FFEG3NBE'; // test
     const reply = rtm.sendMessage(resp, channel).then(() => {
         console.log('єбой', reply.ts);
     });

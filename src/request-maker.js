@@ -26,7 +26,7 @@ const makeRequest = (callback) => fetch(apiLink)
                     .then(res => res.text())
                     .then(body => {
                         const {country, hasNewData} = checkNewData(body);
-
+                        console.log('hasNewData small', hasNewData);
                         if (hasNewData) {
                             saveNewDataAction(country, callback);
                         }
@@ -81,6 +81,7 @@ const workWithData = (country, callback) => {
         'Всього випадків: *' + confirmed + '*\n' +
         'Всього одужало: *' + recovered + '*\n' +
         'Всього летальних випадків: *' + deaths + '*\n' +
+        // '';
         '<@UATK7HW12>' + '<@UAW8J3TQW>';
 
     callback(resp);
