@@ -81,8 +81,8 @@ const workWithData = (country, callback) => {
         'Всього випадків: *' + confirmed + '*\n' +
         'Всього одужало: *' + recovered + '*\n' +
         'Всього летальних випадків: *' + deaths + '*\n' +
-        // '';
         '<@UATK7HW12>' + '<@UAW8J3TQW>';
+    // '';
 
     callback(resp);
 };
