@@ -10,8 +10,8 @@ const makeRequest = require('./request-maker');
  * @param {Function} callback
  */
 const initCron = (callback) => {
-    const job = new CronJob('15 8 * * *', async () => {
-        console.log('You will see this message every 8:15');
+    const job = new CronJob('35 8 * * *', async () => {
+        console.log('You will see this message every 8:35');
 
         await makeRequest(callback);
     }, null, true, 'Europe/Kiev');
