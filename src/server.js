@@ -12,7 +12,7 @@ const initServer = () => {
         response.send("<h1>Main page</h1>");
     });
     app.use("/h", (request, response) => {
-        const {all, lastDayConfirmed, lastDayRecovered, lastDay, lastDayDeaths} = dataCommandKeys;
+        const {all, reset, lastDayConfirmed, lastDayRecovered, lastDay, lastDayDeaths} = dataCommandKeys;
         const json = {
             "response_type": "in_channel",
             "blocks": [
@@ -32,6 +32,7 @@ const initServer = () => {
                             '*' + lastDayRecovered + '* - Вивести скільки одужало(за останню добу);\n' +
                             '*' + lastDayDeaths + '* - Вивести летальних випадків(за останню добу);\n' +
                             '*' + lastDay + '* - Вивести всі нові дані(за останню добу);\n' +
+                            '*' + reset + '* - Перезавантажити дані;\n' +
                             '*h* - Вивести список всіх команд;'
                     }
                 },
