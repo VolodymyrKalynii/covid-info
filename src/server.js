@@ -40,6 +40,23 @@ const initServer = () => {
 
         response.send(json);
     });
+    app.use("/reset", async (request, response) => {
+
+        const callback = (resp) => {
+            response.send(resp);
+        };
+
+        await makeRequest(callback, true);
+        //
+        // if (!country) {
+        //     sendAltMessage(response);
+        //     return null;
+        // }
+        //
+        // const json = getAllDataJsonSection(country);
+        //
+        // response.send(json);
+    });
     app.use("/all", (request, response) => {
         const country = cache.get('parsedBody');
 

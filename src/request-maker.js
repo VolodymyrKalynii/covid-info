@@ -11,15 +11,17 @@ let interval;
 /**
  *
  * @param {Function?} callback
+ * @param {boolean?} force
  * @returns {PromiseLike<any> | Promise<any>}
  */
-const makeRequest = (callback) => fetch(apiLink)
+const makeRequest = (callback, force) => fetch(apiLink)
     .then(res => res.text())
     .then(body => {
-        const {country, hasNewData} = checkNewData(body);
+        const {country, hasNewData} = checkNewData(body, force);
         console.log('hasNewData big', hasNewData);
         if (hasNewData) {
             saveNewDataAction(country, callback);
+
         } else {
             interval = setInterval(() => {
                 fetch(apiLink)
@@ -36,13 +38,23 @@ const makeRequest = (callback) => fetch(apiLink)
     });
 
 
-const checkNewData = (newData) => {
+const checkNewData = (newData, force = false) => {
     const newParsedData = JSON.parse(newData);
 
     const {world} = newParsedData;
     const country = world.find(c => c.country === 'Ukraine');
-    const oldCachedData = cache.get('parsedBody');
     const {delta_confirmed, delta_deaths, delta_recovered} = country;
+
+    if (force) {
+        return { // добавив провірку на 0, бо якогось фіга, зранку апі вертає нульові значення
+            hasNewData: delta_confirmed > 0 && delta_deaths > 0 && delta_recovered > 0,
+            country
+        };
+    }
+
+
+
+    const oldCachedData = cache.get('parsedBody');
 
     return { // добавив провірку на 0, бо якогось фіга, зранку апі вертає нульові значення
         hasNewData: delta_confirmed > 0 && delta_deaths > 0 && delta_recovered > 0 && !isEqual(country, oldCachedData),
