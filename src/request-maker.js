@@ -96,8 +96,8 @@ const workWithData = (country, callback, force) => {
             '___\n' +
             'Всього випадків: *' + confirmed + '*\n' +
             'Всього одужало: *' + recovered + '*\n' +
-            'Всього летальних випадків: *' + deaths + '*\n' +
-            '<@UATK7HW12>' + '<@UAW8J3TQW>'
+            'Всього летальних випадків: *' + deaths + '*\n' + ''
+            // '<@UATK7HW12>' + '<@UAW8J3TQW>'
         : 'Прийшли нові данні за *' + currentDate + '*\n' +
             'Нових випадків: *' + delta_confirmed + '*\n' +
             'Одужали за добу: *' + delta_recovered + '*\n' +
